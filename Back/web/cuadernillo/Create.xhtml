@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CuadernilloCreateDlg" widgetVar="CuadernilloCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCuadernilloTitle}">
+            <h:form id="CuadernilloCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{cuadernilloController.selected != null}">
+
+                        <p:outputLabel value="#{bundle.CreateCuadernilloLabel_tipo}" for="tipo" />
+                        <p:selectOneMenu id="tipo" value="#{cuadernilloController.selected.tipo}" style="width:125px">
+                            <f:selectItem itemLabel="Prueba" itemValue="Prueba" />
+                            <f:selectItem itemLabel="Actora" itemValue="Actora" />
+                            <f:selectItem itemLabel="Demandada" itemValue="Demandada" />
+                            <f:selectItem itemLabel="Beneficio de litigar sin gasto" itemValue="Beneficio de litigar sin gasto" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateCuadernilloLabel_descMovimiento}" for="descMovimiento" />
+                        <p:inputTextarea rows="4" cols="30" id="descMovimiento" value="#{cuadernilloController.selected.descMovimiento}" title="#{bundle.CreateCuadernilloTitle_descMovimiento}" required="true" requiredMessage="#{bundle.CreateCuadernilloRequiredMessage_descMovimiento}"/>
+
+                        <p:outputLabel value="#{bundle.CreateCuadernilloLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{cuadernilloController.selected.fecha}" title="#{bundle.EditCuadernilloTitle_fecha}" required="true" requiredMessage="#{bundle.EditCuadernilloRequiredMessage_fecha}" showOn="button"/>
+                        
+                        <p:outputLabel value="#{bundle.CreateExpedientesLabel_exp}" for="numexp" />
+                        <p:selectOneMenu id="numexp" value="#{cuadernilloController.selected.codExp}" filter="true" filterMatchMode="contains" style="width: 100px">
+                            <f:selectItems value="#{expedientesController.itemsAvailableSelectOne}"
+                                           var="codExpItem"
+                                           itemValue="#{codExpItem}"/>
+                        </p:selectOneMenu>
+                        
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cuadernilloController.create}" value="#{bundle.Save}" update="display,:CuadernilloListForm:datalist,:growl" oncomplete="handleSubmit(args,'CuadernilloCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CuadernilloCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

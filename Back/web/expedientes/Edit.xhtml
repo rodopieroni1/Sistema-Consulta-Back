@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ExpedientesEditDlg" widgetVar="ExpedientesEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle2.EditExpedientesTitle}">
+            <h:form id="ExpedientesEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{expedientesController.selected != null}">
+                        <p:outputLabel value="#{bundle2.EditExpedientesLabel_numExpediente}" for="numExpediente" />
+                        <p:inputText id="numExpediente" value="#{expedientesController.selected.numExpediente}" title="#{bundle2.EditExpedientesTitle_numExpediente}" required="true" requiredMessage="#{bundle2.EditExpedientesRequiredMessage_numExpediente}"/>
+                        
+                        <p:outputLabel value="#{bundle2.EditExpedientesLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="dd/MM/yyyy" value="#{expedientesController.selected.fecha}" title="#{bundle2.EditExpedientesTitle_fecha}" showOn="button"/>
+                        
+                        <p:outputLabel value="#{bundle2.EditExpedientesLabel_movimiento}" for="movimiento" />
+                        <p:inputTextarea rows="4" cols="30" id="movimiento" value="#{expedientesController.selected.movimiento}" title="#{bundle2.EditExpedientesTitle_movimiento}"/>
+                        
+                        <p:outputLabel value="#{bundle2.EditExpedientesLabel_caratula}" for="caratula" />
+                        <p:inputTextarea rows="4" cols="30" id="caratula" value="#{expedientesController.selected.caratula}" title="#{bundle2.EditExpedientesTitle_caratula}"/>
+                        
+                        <p:outputLabel value="#{bundle2.EditExpedientesLabel_segundaInstancia}" for="segundaInstancia" />
+                        <p:inputText id="segundaInstancia" value="#{expedientesController.selected.segundaInstancia}" title="#{bundle2.EditExpedientesTitle_segundaInstancia}"/>
+                        
+                        <p:outputLabel value="#{bundle2.EditExpedientesLabel_codJuzgado}" for="codJuzgado" />
+                        <p:selectOneMenu id="codJuzgado" value="#{expedientesController.selected.codJuzgado}" filter="true" filterMatchMode="contains" required="true" requiredMessage="#{bundle2.EditExpedientesRequiredMessage_codJuzgado}">
+                            <f:selectItem itemLabel="#{bundle2.SelectOneMessage}"/>
+                            <f:selectItems value="#{juzgadosController.itemsAvailableSelectOne}"
+                                           var="codJuzgadoItem"
+                                           itemValue="#{codJuzgadoItem}"/>
+                        </p:selectOneMenu>
+                        
+                       
+                        
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{expedientesController.update}" value="#{bundle2.Save}" update="display,:ExpedientesListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExpedientesEditDialog');"/>
+                    <p:commandButton value="#{bundle2.Cancel}" onclick="ExpedientesEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

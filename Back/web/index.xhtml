@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body>
+        <h:graphicImage url="img/index.jpg" width="100%" height="100%" >
+            <p:dock position="bottom" maxWidth="350">
+                <p:menuitem value="Escritos" icon="/img/escritos.png" outcome="escritos/List" style="color: black"/>
+                <p:menuitem value="Expedientes" icon="/img/expediente.png" outcome="/expedientes/List" style="color: black"/>
+                <p:menuitem value="Juzgados" icon="/img/juzgados.png" outcome="/juzgados/List" style="color: black"/>
+                <p:menuitem value="Cuadernillo" icon="/img/cuadernillo.png" outcome="/cuadernillo/List" style="color: black"/>
+            </p:dock>
+        </h:graphicImage>
+        <br />
+        <h:link outcome="/expedientes/List" value="Show All Expedientes Items"/>
+    </h:body>
+
+
+
+
+
+
+</html>
+

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EscritosEditDlg" widgetVar="EscritosEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle2.EditEscritosTitle}">
+            <h:form id="EscritosEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{escritosController.selected != null}">
+                        
+                        <p:outputLabel value="#{bundle2.EditEscritosLabel_escritos}" for="escritos" />
+                        <p:inputTextarea rows="4" cols="30" id="escritos" value="#{escritosController.selected.escritos}" title="#{bundle2.EditEscritosTitle_escritos}" required="true" requiredMessage="#{bundle2.EditEscritosRequiredMessage_escritos}"/>
+                        
+                        <p:outputLabel value="#{bundle2.EditEscritosLabel_titulo}" for="titulo" />
+                        <p:inputTextarea rows="4" cols="30" id="titulo" value="#{escritosController.selected.titulo}" title="#{bundle2.EditEscritosTitle_titulo}" required="true" requiredMessage="#{bundle2.EditEscritosRequiredMessage_titulo}"/>
+                    
+                         <p:outputLabel value="#{bundle2.EditExpedientesLabel_codEscrito}" for="codExp" />
+                         <p:selectOneMenu id="codExp" value="#{escritosController.selected.codExp}">
+                            <f:selectItem itemLabel="#{bundle2.SelectOneMessage}"/>
+                            <f:selectItems value="#{expedientesController.itemsAvailableSelectOne}"
+                                           var="codExpItem"
+                                           itemValue="#{codExpItem}"/>
+                        </p:selectOneMenu>
+                        
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{escritosController.update}" value="#{bundle2.Save}" update="display,:EscritosListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EscritosEditDialog');"/>
+                    <p:commandButton value="#{bundle2.Cancel}" onclick="EscritosEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
